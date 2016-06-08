@@ -1,5 +1,7 @@
 package example
 
+import java.util.NoSuchElementException
+
 import org.scalatest.FunSuite
 
 import org.junit.runner.RunWith
@@ -121,6 +123,19 @@ import org.scalatest.junit.JUnitRunner
     assert(max(List(3, 7, 2)) === 7)
   }
 
+  test("max of a negative numbers") {
+    assert(max(List(-3, -7, -2)) === -2)
+  }
 
+  test("max of a negative numbers with Int Min value") {
+    assert(max(List(-3, -7, -2, Int.MinValue)) === -2)
+  }
+
+  test("empty list") {
+    val thrown = intercept[NoSuchElementException] {
+      max(List())
+    }
+    assert(thrown.getMessage() === "The list is empty!")
+  }
 
 }

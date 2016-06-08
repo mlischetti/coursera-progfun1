@@ -2,10 +2,6 @@ package example
 
 import java.util.NoSuchElementException
 
-object Main extends App{
-  println(Lists.max(List()))
-}
-
 object Lists {
 
   /**
@@ -50,7 +46,7 @@ object Lists {
    */
     def max(xs: List[Int]): Int = {
       xs match {
-        case Nil => throw new NoSuchElementException
+        case Nil => throw new NoSuchElementException("The list is empty!")
         case _ => maxInteger(xs)
       }
 
@@ -58,7 +54,7 @@ object Lists {
 
     def maxInteger(xs: List[Int]): Int = {
       xs match {
-        case Nil => 0
+        case Nil => Int.MinValue
         case h :: t => {
           val maxInTail = maxInteger(t)
           if (h > maxInTail) h else maxInTail
