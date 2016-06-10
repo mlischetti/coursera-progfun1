@@ -49,8 +49,7 @@ object Main {
       else if (money < 0 || coins.isEmpty)
         0
       else
-        count(money - coins.head, coins.tail) + count(money, coins.tail)
-
+        count(money - coins.head, coins) + count(money, coins.tail)
     }
 
     if (money == 0) 0 else count(money, coins)
