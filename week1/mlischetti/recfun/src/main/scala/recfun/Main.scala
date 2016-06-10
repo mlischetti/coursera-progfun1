@@ -23,16 +23,18 @@ object Main {
   def balance(chars: List[Char]): Boolean = {
 
     def isParenthesesBalanced(balanceOfParentheses: Int, chars: List[Char]): Boolean = {
-      if (balanceOfParentheses < 0)
-        return false
-
-      chars match {
-        case Nil => balanceOfParentheses == 0
-        case x :: tail => {
-          val parenthesesFactor = if (x == '(') 1 else if (x == ')') -1 else 0
-          isParenthesesBalanced(balanceOfParentheses + parenthesesFactor, chars.tail)
+      if (balanceOfParentheses < 0) {
+        false
+      } else {
+        chars match {
+          case Nil => balanceOfParentheses == 0
+          case x :: tail => {
+            val parenthesesFactor = if (x == '(') 1 else if (x == ')') -1 else 0
+            isParenthesesBalanced(balanceOfParentheses + parenthesesFactor, chars.tail)
+          }
         }
       }
+
     }
 
     isParenthesesBalanced(0, chars)
@@ -44,12 +46,7 @@ object Main {
   def countChange(money: Int, coins: List[Int]): Int = {
 
     def count(money: Int, coins: List[Int]): Int = {
-      if (money == 0)
-        1
-      else if (money < 0 || coins.isEmpty)
-        0
-      else
-        count(money - coins.head, coins) + count(money, coins.tail)
+      if (money == 0) 1 else if (money < 0 || coins.isEmpty) 0 else count(money - coins.head, coins) + count(money, coins.tail)
     }
 
     if (money == 0) 0 else count(money, coins)
