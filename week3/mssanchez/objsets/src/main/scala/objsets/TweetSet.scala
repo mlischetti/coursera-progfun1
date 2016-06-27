@@ -134,7 +134,7 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
 
     def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = {
       val accAux = if(p(elem)) acc.incl(elem) else acc
-      left.filterAcc(p, right.filterAcc(p, accAux))
+      remove(elem).filterAcc(p, accAux)
     }
   
     
@@ -164,9 +164,7 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
     right.foreach(f)
   }
 
-  def union(that: TweetSet): TweetSet = {
-    ((left union right) union that).incl(elem)
-  }
+  def union(that: TweetSet): TweetSet =  (left union (right union that)) incl elem
 
   def mostRetweeted: Tweet = {
     val setAfterRemove = remove(elem)
