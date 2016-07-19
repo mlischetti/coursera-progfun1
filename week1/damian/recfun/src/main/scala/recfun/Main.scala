@@ -24,30 +24,28 @@ object Main {
   /**
    * Exercise 2
    */
-
-  //TODO: to correct
     def balance(chars: List[Char]): Boolean = {
-      filterParentheses(chars).isEmpty
+      val parentheses = Stack[Char]()
+      filterParentheses(chars, parentheses).isEmpty
+
     }
 
-    def filterParentheses(chars: List[Char]): Stack[Char] = {
-      val parentheses = Stack[Char]()
-
+    def filterParentheses(chars: List[Char], parentheses: Stack[Char]): Stack[Char] = {
       if (chars.nonEmpty) {
         chars.head match {
-          case '(' => {
+          case '(' =>
             parentheses.push(chars.head)
-            filterParentheses(chars.tail)
-          }
-          case ')' => {
+            filterParentheses(chars.tail, parentheses)
+
+          case ')' =>
             if (parentheses.nonEmpty){
               parentheses.pop()
-              filterParentheses(chars.tail)
+              filterParentheses(chars.tail, parentheses)
             }
             else
               parentheses.push('n')
-          }
-          case _ => filterParentheses(chars.tail)
+
+          case _ => filterParentheses(chars.tail, parentheses)
         }
       }
 
@@ -57,5 +55,18 @@ object Main {
   /**
    * Exercise 3
    */
-    def countChange(money: Int, coins: List[Int]): Int = ???
+    def countChange(money: Int, coins: List[Int]): Int = {
+      def count(wallet: Int, lstCoins: List[Int]): Int ={
+        if (wallet == 0)
+          1
+        else if (wallet < 0 || lstCoins.isEmpty)
+          0
+        else
+          count(wallet - lstCoins.head, lstCoins) + count(wallet, lstCoins.tail)
+      }
+
+      count(money, coins)
+    }
+
+
   }
